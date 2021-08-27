@@ -18,7 +18,8 @@
         "@jscad/openjscad": "github:mrzealot/oldjscad",
         "fs-extra": "^9.0.1",
         "js-yaml": "^3.14.0",
-        "kle-serial": "github:mrzealot/kle-serial",
+        "kle-serial": "github:mveerd/kle-serial#patch-1",
+
         "makerjs": "github:mrzealot/maker.js-dist",
         "mathjs": "^8.1.1",
         "yargs": "^15.4.1"
