@@ -1,5 +1,5 @@
 /*!
- * Ergogen v3.0.0
+ * Ergogen v3.1.0-mveerd#smd-diode
  * https://zealot.hu/ergogen
  */
 
@@ -916,8 +916,8 @@
 
 	exports.visualize = (points, units) => {
 	    const models = {};
-	    x_unit = units.visual_x || (units.u - 1);
-	    y_unit = units.visual_y || (units.u - 1);
+	    const x_unit = units.visual_x || (units.u - 1);
+	    const y_unit = units.visual_y || (units.u - 1);
 	    for (const [pname, p] of Object.entries(points)) {
 	        const w = p.meta.width * x_unit;
 	        const h = p.meta.height * y_unit;
@@ -2946,7 +2946,7 @@
 	};
 
 	var ergogen = {
-	    version: '3.0.0',
+	    version: '3.1.0-mveerd#smd-diode',
 	    process,
 	    inject_footprint: pcbs.inject_footprint
 	};
