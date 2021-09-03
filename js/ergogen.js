@@ -2946,7 +2946,7 @@
 	};
 
 	var ergogen = {
-	    version: '3.0.0-mveerd#smd-diode',
+	    version: '3.0.0',
 	    process,
 	    inject_footprint: pcbs.inject_footprint
 	};
