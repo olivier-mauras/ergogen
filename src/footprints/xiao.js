@@ -57,12 +57,12 @@ module.exports = {
   (pad "13" thru_hole circle (at 16.581 -15.57782) (size 1.524 1.524) (drill 1) (layers *.Cu *.Mask) ${ p.net.GND.str })
   (pad "14" thru_hole circle (at 16.581 -18.11782) (size 1.524 1.524) (drill 1) (layers *.Cu *.Mask) ${ p.net.RAW5V.str })
   (pad "14" thru_hole oval (at 16.99768 -18.11782 ${p.rot}) (size 2.74828 1.99898) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask") ${ p.net.RAW5V.str })
-  (pad "15" thru_hole oval (at 7.7 -1.8 ${p.rot + 90 }) (size 2.032 1.016) (drill 0.3) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask") ${ p.net.VIN.str })
-  (pad "16" thru_hole oval (at 10.25 -1.8 ${p.rot + 90 }) (size 2.032 1.016) (drill 0.3) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask") ${ p.net.GND.str })
-  (pad "17" thru_hole circle (at 7.698803 -18.804187) (size 1.143 1.143) (drill 0.3) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask") ${ p.net.SWDIO.str })
-  (pad "18" thru_hole circle (at 10.238803 -18.804187) (size 1.143 1.143) (drill 0.3) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask") ${ p.net.SWDCLK.str })
-  (pad "19" thru_hole circle (at 7.698803 -16.264187) (size 1.143 1.143) (drill 0.3) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask") ${ p.net.RST.str })
-  (pad "20" thru_hole circle (at 10.238803 -16.264187) (size 1.143 1.143) (drill 0.3) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask") ${ p.net.GND.str })
+  (pad "15" thru_hole oval (at 7.7 -1.8 ${p.rot + 90 }) (size 2.032 1.016) (drill 0.3) (layers *.Cu *.Paste *.Mask) ${ p.net.VIN.str })
+  (pad "16" thru_hole oval (at 10.25 -1.8 ${p.rot + 90 }) (size 2.032 1.016) (drill 0.3) (layers *.Cu *.Paste *.Mask) ${ p.net.GND.str })
+  (pad "17" thru_hole circle (at 7.698803 -18.804187) (size 1.143 1.143) (drill 0.3) (layers *.Cu *.Paste *.Mask) ${ p.net.SWDIO.str })
+  (pad "18" thru_hole circle (at 10.238803 -18.804187) (size 1.143 1.143) (drill 0.3) (layers *.Cu *.Paste *.Mask) ${ p.net.SWDCLK.str })
+  (pad "19" thru_hole circle (at 7.698803 -16.264187) (size 1.143 1.143) (drill 0.3) (layers *.Cu *.Paste *.Mask) ${ p.net.RST.str })
+  (pad "20" thru_hole circle (at 10.238803 -16.264187) (size 1.143 1.143) (drill 0.3) (layers *.Cu *.Paste *.Mask) ${ p.net.GND.str })
 
   ${ ``/* Silkscreen */ }
   (fp_line (start 13.39342 -22.42312) (end 13.39342 -15.06982) (layer "${ p.param.side }.SilkS") (width 0.127))
