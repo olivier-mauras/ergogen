@@ -1,5 +1,5 @@
 /*!
- * Ergogen v9.9.9-mveerd-9c8798f
+ * Ergogen v9.9.9-mveerd-be19d504
  * https://zealot.hu/ergogen
  */
 
@@ -2686,7 +2686,7 @@
   (pad "13" thru_hole circle (at 16.581 -15.57782) (size 1.524 1.524) (drill 1) (layers *.Cu *.Mask) ${ p.net.GND.str })
   (pad "14" thru_hole circle (at 16.581 -18.11782) (size 1.524 1.524) (drill 1) (layers *.Cu *.Mask) ${ p.net.RAW5V.str })
   (pad "14" thru_hole oval (at 16.99768 -18.11782 ${p.rot}) (size 2.74828 1.99898) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask") ${ p.net.RAW5V.str })
-  (pad "15" thru_hole oval (at 7.7 -1.8 ${p.rot + 90 }) (size 2.032 1.016) (drill 0.3) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask" ${ p.net.VIN.str })
+  (pad "15" thru_hole oval (at 7.7 -1.8 ${p.rot + 90 }) (size 2.032 1.016) (drill 0.3) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask") ${ p.net.VIN.str })
   (pad "16" thru_hole oval (at 10.25 -1.8 ${p.rot + 90 }) (size 2.032 1.016) (drill 0.3) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask") ${ p.net.GND.str })
   (pad "17" thru_hole circle (at 7.698803 -18.804187) (size 1.143 1.143) (drill 0.3) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask") ${ p.net.SWDIO.str })
   (pad "18" thru_hole circle (at 10.238803 -18.804187) (size 1.143 1.143) (drill 0.3) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask") ${ p.net.SWDCLK.str })
@@ -3146,7 +3146,7 @@
 	};
 
 	var ergogen = {
-	    version: '9.9.9-mveerd-9c8798f',
+	    version: '9.9.9-mveerd-be19d504',
 	    process,
 	    inject_footprint: pcbs.inject_footprint
 	};
