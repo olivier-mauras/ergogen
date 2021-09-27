@@ -20,4 +20,5 @@ module.exports = {
     tactswitch: require('./tactswitch'),
     trrs: require('./trrs'),
     via: require('./via'),
+    xiao: require('./xiao'),
 }
