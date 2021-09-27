@@ -1,5 +1,5 @@
 /*!
- * Ergogen v3.1.0-mveerd#smd-diode
+ * Ergogen v9.9.9-mveerd-9c8798f
  * https://zealot.hu/ergogen
  */
 
@@ -1264,7 +1264,14 @@
 	                    const fillet = assert_1.sane(part.fillet || 0, `${name}.fillet`, 'number')(units);
 	                    arg = utils.deepcopy(outlines[part.name]);
 	                    if (fillet) {
-	                        arg.models.fillets = makerjs__default['default'].chain.fillet(makerjs__default['default'].model.findSingleChain(arg), fillet);
+	                        const chains = makerjs__default['default'].model.findChains(arg);
+
+	                        if (Array.isArray(chains)){
+	                            chains.forEach((chain, i) => {
+	                                arg.models[`fillet_${i}`] = makerjs__default['default'].chain.fillet(chain, fillet);
+	                            });
+	                        }
+
 	                    }
 	                    break
 	                default:
@@ -1818,6 +1825,38 @@
     `
 	};
 
+	// MountingHole_2.2mm_M2_Pad_Via
+	// TODO add more sizes as param?
+	var mountinghole = {
+	    nets: {
+	        net: undefined
+	    },
+	    params: {
+	        class: 'HOLE',
+	    },
+	    body: p => `
+    (module "MountingHole_2.2mm_M2_Pad_Via" (version 20210722) (generator pcbnew) (layer "F.Cu")
+      (tedit 56DDB9C7)
+      ${p.at /* parametric position */} 
+    
+      (fp_text reference "${p.ref}" (at 0 -3.2) (layer "F.SilkS") ${p.ref_hide} 
+        (effects (font (size 1 1) (thickness 0.15)))
+        (tstamp b68bb25c-687d-44b1-b966-dad4cac66b35)
+      )
+    
+      (fp_circle (center 0 0) (end 2.45 0) (layer "F.CrtYd") (width 0.05) (fill none) (tstamp b2688462-c375-45d3-9095-3425fb17c88f))
+      (pad "1" thru_hole circle locked (at 1.166726 1.166726) (size 0.7 0.7) (drill 0.4) (layers *.Cu *.Mask) (tstamp 2a7fc905-328f-4bbb-9222-ca8d15d03a86))
+      (pad "1" thru_hole circle locked (at 0 0) (size 4.4 4.4) (drill 2.2) (layers *.Cu *.Mask) (tstamp 47ee1d53-0551-4b6d-bc24-3f3f14c73c36))
+      (pad "1" thru_hole circle locked (at 0 1.65) (size 0.7 0.7) (drill 0.4) (layers *.Cu *.Mask) (tstamp 4eef65bc-4add-40d7-8319-14dcdbae0d44))
+      (pad "1" thru_hole circle locked (at 1.166726 -1.166726) (size 0.7 0.7) (drill 0.4) (layers *.Cu *.Mask) (tstamp 56155f4d-2ebc-4ad4-8d82-7aa7846deba8))
+      (pad "1" thru_hole circle locked (at -1.65 0) (size 0.7 0.7) (drill 0.4) (layers *.Cu *.Mask) (tstamp 787d6162-1d3c-4def-859e-6532ce27c1ef))
+      (pad "1" thru_hole circle locked (at -1.166726 -1.166726) (size 0.7 0.7) (drill 0.4) (layers *.Cu *.Mask) (tstamp 8d699d12-7099-4814-bbe6-11bc74c6e8b2))
+      (pad "1" thru_hole circle locked (at -1.166726 1.166726) (size 0.7 0.7) (drill 0.4) (layers *.Cu *.Mask) (tstamp 95ab0420-a56b-46ee-98ad-5072a1a93a6f))
+      (pad "1" thru_hole circle locked (at 1.65 0) (size 0.7 0.7) (drill 0.4) (layers *.Cu *.Mask) (tstamp cde0acf2-b3b4-46de-9f6e-3ab519744000))
+      (pad "1" thru_hole circle locked (at 0 -1.65) (size 0.7 0.7) (drill 0.4) (layers *.Cu *.Mask) (tstamp ff0de415-ae11-46fb-b780-c24aee621212))
+    )`
+	};
+
 	// Any MX switch
 	// Nets
 	//    from: corresponds to pin 1
@@ -2167,6 +2206,14 @@
 	  }
 	};
 
+	var rawkicad = {
+	    params: {
+	        class: 'RAW',
+	        data: ''
+	    },
+	    body: p => p.param.data
+	};
+
 	var rgb = {
 	    nets: {
 	        din: undefined,
@@ -2324,7 +2371,7 @@
 			  reverse: false
 	    },
 	    body: p => {
-	      standard = `
+	      const standard = `
         (module RollerEncoder_Panasonic_EVQWGD001 (layer F.Cu) (tedit 6040A10C)
         ${p.at /* parametric position */}   
         (fp_text reference REF** (at 0 0 ${p.rot}) (layer F.Fab) (effects (font (size 1 1) (thickness 0.15))))
@@ -2432,6 +2479,50 @@
 	    }
 	};
 
+	var tactswitch = {
+	    nets: {
+	        from: undefined,
+	        to: undefined
+	    },
+	    params: {
+	        class: 'B', // for Button
+	    },
+	    body: p => `
+    (module TACT_SWITCH_TVBP06 (layer F.Cu) (tedit 5B8CD44F)
+    ${p.at /* parametric position */}
+    
+  (fp_text reference "${p.ref}" (at 0 -1.7) (layer F.SilkS) ${p.ref_hide}
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (fp_text value SW_RST (at 0 2) (layer F.Fab) hide
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (fp_text user RESET (at 0 0 -180) (layer F.SilkS)
+    (effects (font (size 0.8 0.8) (thickness 0.15)))
+  )
+  (fp_text user RESET (at 0 0) (layer B.SilkS)
+    (effects (font (size 0.8 0.8) (thickness 0.15)) (justify mirror))
+  )
+  (fp_line (start -3 -1.8) (end 2.9 -1.8) (layer B.SilkS) (width 0.15))
+  (fp_line (start -3 -1.8) (end 3 -1.8) (layer B.SilkS) (width 0.15))
+  (fp_line (start 3 1.7) (end -3 1.7) (layer B.SilkS) (width 0.15))
+  (fp_line (start 3 -1.8) (end -3 -1.8) (layer F.SilkS) (width 0.15))
+  (fp_line (start -3 1.7) (end 3 1.7) (layer F.SilkS) (width 0.15))
+  (fp_line (start 3 -1.8) (end 3 -1.1) (layer F.SilkS) (width 0.15))
+  (fp_line (start 3 1.7) (end 3 1.1) (layer F.SilkS) (width 0.15))
+  (fp_line (start -3 1.7) (end -3 1.1) (layer F.SilkS) (width 0.15))
+  (fp_line (start -3 -1.8) (end -3 -1.1) (layer F.SilkS) (width 0.15))
+  (fp_line (start 3 -1.8) (end 3 -1.1) (layer B.SilkS) (width 0.15))
+  (fp_line (start 3 1.7) (end 3 1.1) (layer B.SilkS) (width 0.15))
+  (fp_line (start -3 1.7) (end -3 1.1) (layer B.SilkS) (width 0.15))
+  (fp_line (start -3 -1.8) (end -3 -1.1) (layer B.SilkS) (width 0.15))
+  (pad 1 thru_hole circle (at -3.25 0) (size 2 2) (drill 1.3) (layers *.Cu *.Mask) ${p.net.from.str})
+  (pad 2 thru_hole circle (at 3.25 0) (size 2 2) (drill 1.3) (layers *.Cu *.Mask) ${p.net.to.str})
+)
+    
+    `
+	};
+
 	// TRRS-PJ-320A-dual
 	//     _________________
 	//    | (1)     (3) (4)|
@@ -2536,6 +2627,111 @@
     `
 	};
 
+	// Seeduino XIAO with vias for underside pads
+	var xiao = {
+	    nets:   {
+	        VIN:    'VIN',
+	        SWDIO:  'SWDIO',
+	        SWDCLK: 'SWDCLK',
+	        RST:    'RST',
+	        GND:    'GND',
+	        P0:     'P0',
+	        P1:     'P1',
+	        P2:     'P2',
+	        P3:     'P3',
+	        P4:     'P4',
+	        P5:     'P5',
+	        P6:     'P6',
+	        P7:     'P7',
+	        P8:     'P8',
+	        P9:     'P9',
+	        P10:    'P10',
+	        RAW3V3: 'RAW3V3',
+	        RAW5V:  'RAW5V'
+	    },
+	    params: {
+	        class: 'MCU',
+	        side:  'F'
+	    },
+	    body:   p => `
+      (footprint "Seeeduino XIAO-MOUDLE14P-2.54-21X17.8MM tht maybe" (layer "${ p.param.side }.Cu") (tedit 613ABEDD) (attr smd)
+      ${ p.at /* parametric position */ }
+
+  ${ ``/* Pads */ }
+  (pad "1" smd oval (at 0.83312 -18.11782 ${p.rot}) (size 2.74828 1.99898) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask") ${ p.net.P0.str })
+  (pad "1" thru_hole circle (at 1.25 -18.11782) (size 1.524 1.524) (drill 1) (layers *.Cu *.Mask) ${ p.net.P0.str })
+  (pad "2" thru_hole circle (at 1.25 -15.57782) (size 1.524 1.524) (drill 1) (layers *.Cu *.Mask) ${ p.net.P1.str })
+  (pad "2" smd oval (at 0.83312 -15.57782 ${p.rot}) (size 2.74828 1.99898) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask") ${ p.net.P1.str })
+  (pad "3" smd oval (at 0.83312 -13.03782 ${p.rot}) (size 2.74828 1.99898) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask") ${ p.net.P2.str })
+  (pad "3" thru_hole circle (at 1.25 -13.03782) (size 1.524 1.524) (drill 1) (layers *.Cu *.Mask) ${ p.net.P2.str })
+  (pad "4" smd oval (at 0.83312 -10.49782 ${p.rot}) (size 2.74828 1.99898) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask") ${ p.net.P3.str })
+  (pad "4" thru_hole circle (at 1.25 -10.49782) (size 1.524 1.524) (drill 1) (layers *.Cu *.Mask) ${ p.net.P3.str })
+  (pad "5" thru_hole circle (at 1.25 -7.95782) (size 1.524 1.524) (drill 1) (layers *.Cu *.Mask) ${ p.net.P4.str })
+  (pad "5" smd oval (at 0.83312 -7.95782 ${p.rot}) (size 2.74828 1.99898) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask") ${ p.net.P4.str })
+  (pad "6" smd oval (at 0.83312 -5.41782 ${p.rot}) (size 2.74828 1.99898) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask") ${ p.net.P5.str })
+  (pad "6" thru_hole circle (at 1.25 -5.41782) (size 1.524 1.524) (drill 1) (layers *.Cu *.Mask) ${ p.net.P5.str })
+  (pad "7" thru_hole circle (at 1.25 -2.87782) (size 1.524 1.524) (drill 1) (layers *.Cu *.Mask) ${ p.net.P6.str })
+  (pad "7" smd oval (at 0.83312 -2.87782 ${p.rot}) (size 2.74828 1.99898) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask") ${ p.net.P6.str })
+  (pad "8" thru_hole circle (at 16.581 -2.87782) (size 1.524 1.524) (drill 1) (layers *.Cu *.Mask) ${ p.net.P7.str })
+  (pad "8" smd oval (at 16.99768 -2.87782 ${p.rot}) (size 2.74828 1.99898) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask") ${ p.net.P7.str })
+  (pad "9" smd oval (at 16.99768 -5.41782 ${p.rot}) (size 2.74828 1.99898) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask")  ${ p.net.P8.str })
+  (pad "9" thru_hole circle (at 16.581 -5.41782) (size 1.524 1.524) (drill 1) (layers *.Cu *.Mask)  ${ p.net.P8.str })
+  (pad "10" smd oval (at 16.99768 -7.95782 ${p.rot}) (size 2.74828 1.99898) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask") ${ p.net.P9.str })
+  (pad "10" thru_hole circle (at 16.581 -7.95782) (size 1.524 1.524) (drill 1) (layers *.Cu *.Mask) ${ p.net.P9.str })
+  (pad "11" thru_hole circle (at 16.581 -10.49782) (size 1.524 1.524) (drill 1) (layers *.Cu *.Mask) ${ p.net.P10.str })
+  (pad "11" smd oval (at 16.99768 -10.49782 ${p.rot}) (size 2.74828 1.99898) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask") ${ p.net.P10.str })
+  (pad "12" smd oval (at 16.99768 -13.03782 ${p.rot}) (size 2.74828 1.99898) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask") ${ p.net.RAW3V3.str })
+  (pad "12" thru_hole circle (at 16.581 -13.03782) (size 1.524 1.524) (drill 1) (layers *.Cu *.Mask) ${ p.net.RAW3V3.str })
+  (pad "13" smd oval (at 16.99768 -15.57782 ${p.rot}) (size 2.74828 1.99898) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask") ${ p.net.GND.str })
+  (pad "13" thru_hole circle (at 16.581 -15.57782) (size 1.524 1.524) (drill 1) (layers *.Cu *.Mask) ${ p.net.GND.str })
+  (pad "14" thru_hole circle (at 16.581 -18.11782) (size 1.524 1.524) (drill 1) (layers *.Cu *.Mask) ${ p.net.RAW5V.str })
+  (pad "14" thru_hole oval (at 16.99768 -18.11782 ${p.rot}) (size 2.74828 1.99898) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask") ${ p.net.RAW5V.str })
+  (pad "15" thru_hole oval (at 7.7 -1.8 ${p.rot + 90 }) (size 2.032 1.016) (drill 0.3) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask" ${ p.net.VIN.str })
+  (pad "16" thru_hole oval (at 10.25 -1.8 ${p.rot + 90 }) (size 2.032 1.016) (drill 0.3) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask") ${ p.net.GND.str })
+  (pad "17" thru_hole circle (at 7.698803 -18.804187) (size 1.143 1.143) (drill 0.3) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask") ${ p.net.SWDIO.str })
+  (pad "18" thru_hole circle (at 10.238803 -18.804187) (size 1.143 1.143) (drill 0.3) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask") ${ p.net.SWDCLK.str })
+  (pad "19" thru_hole circle (at 7.698803 -16.264187) (size 1.143 1.143) (drill 0.3) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask") ${ p.net.RST.str })
+  (pad "20" thru_hole circle (at 10.238803 -16.264187) (size 1.143 1.143) (drill 0.3) (layers "${ p.param.side }.Cu" "${ p.param.side }.Paste" "${ p.param.side }.Mask") ${ p.net.GND.str })
+
+  ${ ``/* Silkscreen */ }
+  (fp_line (start 13.39342 -22.42312) (end 13.39342 -15.06982) (layer "${ p.param.side }.SilkS") (width 0.127))
+  (fp_line (start 5.461 -18.415) (end 5.461 -21.082) (layer "${ p.param.side }.SilkS") (width 0.06604))
+  (fp_line (start 4.3942 -15.06982) (end 4.3942 -22.42312) (layer "${ p.param.side }.SilkS") (width 0.127))
+  (fp_line (start 11.43 -17.78) (end 11.43 -20.32) (layer "${ p.param.side }.SilkS") (width 0.06604))
+  (fp_line (start 14.097 -18.415) (end 14.097 -21.082) (layer "${ p.param.side }.SilkS") (width 0.06604))
+  (fp_line (start 3.683 -18.415) (end 3.683 -21.082) (layer "${ p.param.side }.SilkS") (width 0.06604))
+  (fp_line (start 12.319 -14.34846) (end 12.319 -17.018) (layer "${ p.param.side }.SilkS") (width 0.06604))
+  (fp_line (start 3.683 -21.082) (end 5.461 -21.082) (layer "${ p.param.side }.SilkS") (width 0.06604))
+  (fp_line (start 6.35 -3.175) (end 12.065 -3.175) (layer "${ p.param.side }.SilkS") (width 0.06604))
+  (fp_line (start 12.319 -14.34846) (end 14.097 -14.34846) (layer "${ p.param.side }.SilkS") (width 0.06604))
+  (fp_line (start 12.319 -18.415) (end 14.097 -18.415) (layer "${ p.param.side }.SilkS") (width 0.06604))
+  (fp_line (start 12.319 -18.415) (end 12.319 -21.082) (layer "${ p.param.side }.SilkS") (width 0.06604))
+  (fp_line (start 3.683 -17.018) (end 5.461 -17.018) (layer "${ p.param.side }.SilkS") (width 0.06604))
+  (fp_line (start 14.097 -14.34846) (end 14.097 -17.018) (layer "${ p.param.side }.SilkS") (width 0.06604))
+  (fp_line (start 13.39342 -15.06982) (end 4.3942 -15.06982) (layer "${ p.param.side }.SilkS") (width 0.127))
+  (fp_line (start 5.461 -14.34846) (end 5.461 -17.018) (layer "${ p.param.side }.SilkS") (width 0.06604))
+  (fp_line (start 6.35 -20.32) (end 11.43 -20.32) (layer "${ p.param.side }.SilkS") (width 0.06604))
+  (fp_line (start 6.35 -17.78) (end 6.35 -20.32) (layer "${ p.param.side }.SilkS") (width 0.06604))
+  (fp_line (start 6.35 -0.635) (end 6.35 -3.175) (layer "${ p.param.side }.SilkS") (width 0.06604))
+  (fp_line (start 0 0) (end 17.79778 0) (layer "${ p.param.side }.SilkS") (width 0.127))
+  (fp_line (start 12.319 -21.082) (end 14.097 -21.082) (layer "${ p.param.side }.SilkS") (width 0.06604))
+  (fp_line (start 3.683 -18.415) (end 5.461 -18.415) (layer "${ p.param.side }.SilkS") (width 0.06604))
+  (fp_line (start 3.683 -14.34846) (end 5.461 -14.34846) (layer "${ p.param.side }.SilkS") (width 0.06604))
+  (fp_line (start 12.065 -0.635) (end 12.065 -3.175) (layer "${ p.param.side }.SilkS") (width 0.06604))
+  (fp_line (start 6.35 -17.78) (end 11.43 -17.78) (layer "${ p.param.side }.SilkS") (width 0.06604))
+  (fp_line (start 17.79778 0) (end 17.79778 -20.99818) (layer "${ p.param.side }.SilkS") (width 0.127))
+  (fp_line (start 0 -20.32762) (end 0 0) (layer "${ p.param.side }.SilkS") (width 0.127))
+  (fp_line (start 3.683 -14.34846) (end 3.683 -17.018) (layer "${ p.param.side }.SilkS") (width 0.06604))
+  (fp_line (start 0.67056 -20.99818) (end 0 -20.32762) (layer "${ p.param.side }.SilkS") (width 0.127))
+  (fp_line (start 6.35 -0.635) (end 12.065 -0.635) (layer "${ p.param.side }.SilkS") (width 0.06604))
+  (fp_line (start 17.79778 -20.99818) (end 0.67056 -20.99818) (layer "${ p.param.side }.SilkS") (width 0.127))
+  (fp_line (start 4.39928 -22.42312) (end 13.39342 -22.42312) (layer "${ p.param.side }.SilkS") (width 0.127))
+  (fp_line (start 12.319 -17.018) (end 14.097 -17.018) (layer "${ p.param.side }.SilkS") (width 0.06604))
+  (fp_circle (center -0.889 -18.161) (end -0.889 -18.415) (layer "${ p.param.side }.SilkS") (width 0) (fill solid))
+)
+     `
+	};
+
 	var footprints = {
 	    alps: alps,
 	    button: button,
@@ -2544,17 +2740,21 @@
 	    diode: diode,
 	    jstph: jstph,
 	    jumper: jumper,
+	    mountinghole: mountinghole,
 	    mx: mx,
 	    oled: oled,
 	    omron: omron,
 	    pad: pad,
 	    promicro: promicro,
+	    rawkicad: rawkicad,
 	    rgb: rgb,
 	    rotary: rotary,
 	    scrollwheel: scrollwheel,
 	    slider: slider,
+	    tactswitch: tactswitch,
 	    trrs: trrs,
 	    via: via,
+	    xiao: xiao,
 	};
 
 	var pcbs = createCommonjsModule(function (module, exports) {
@@ -2946,7 +3146,7 @@
 	};
 
 	var ergogen = {
-	    version: '3.1.0-mveerd#smd-diode',
+	    version: '9.9.9-mveerd-9c8798f',
 	    process,
 	    inject_footprint: pcbs.inject_footprint
 	};
