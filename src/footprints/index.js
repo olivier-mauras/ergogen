@@ -20,6 +20,7 @@ module.exports = {
     slider: require('./slider'),
     tactswitch: require('./tactswitch'),
     trrs: require('./trrs'),
+    usb_c_edge: require('./usb-c-edge'),
     via: require('./via'),
     xiao: require('./xiao'),
 }
