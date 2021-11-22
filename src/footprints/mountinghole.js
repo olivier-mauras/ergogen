@@ -1,5 +1,7 @@
 // MountingHole_2.2mm_M2_Pad_Via
 // TODO add more sizes as param?
+// Uses `Fit Class - Normal` As described by ASME B18.2.8
+// https://amesweb.info/Screws/Metric-Clearance-Hole-Chart.aspx
 module.exports = {
     nets: {
         net: undefined
@@ -8,7 +10,7 @@ module.exports = {
         class: 'HOLE',
     },
     body: p => `
-    (module "MountingHole_2.2mm_M2_Pad_Via" (version 20210722) (generator pcbnew) (layer "F.Cu")
+    (module "MountingHole_2.2mm_M2_Pad_Via" (layer "F.Cu")
 
       ${p.at /* parametric position */} 
     
