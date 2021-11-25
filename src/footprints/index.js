@@ -19,6 +19,7 @@ module.exports = {
     scrollwheel: require('./scrollwheel'),
     slider: require('./slider'),
     tactswitch: require('./tactswitch'),
+    trace: require('./trace'),
     trrs: require('./trrs'),
     via: require('./via'),
     xiao: require('./xiao'),
