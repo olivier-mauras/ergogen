@@ -21,6 +21,7 @@ module.exports = {
     tactswitch: require('./tactswitch'),
     trace: require('./trace'),
     trrs: require('./trrs'),
+    usbc: require('./usbc'),
     via: require('./via'),
     xiao: require('./xiao'),
 }
