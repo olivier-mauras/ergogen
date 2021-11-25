@@ -57,7 +57,9 @@ module.exports = {
         VDD: 'VDD',
     },
     params: {
-        class: 'MCU'
+        class: 'MCU',
+        // By placing a model in the path specified below KiCad will attempt to show it in the 3D viewer
+        model: './3d/holyiot_18010_nRF52840.step'
     },
     body: p => `
         ${ '' /* footprint reference */ }
@@ -158,6 +160,12 @@ module.exports = {
                 (xy ${p.xy(-9.5, -6.2)})
               )
             )
+        )
+        
+        (model ${p.param.model}
+            (at (xyz 0 0 0))
+            (scale (xyz 1 1 1))
+            (rotate (xyz -90 0 0))
         )
     )
     `
