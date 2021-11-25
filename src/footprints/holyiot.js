@@ -124,7 +124,20 @@ module.exports = {
         (pad 53 thru_hole rect (at 4.25 3.1 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P014.str })
         (pad 54 thru_hole rect (at 4.25 4.2 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P013.str })
         (pad 55 thru_hole rect (at 4.25 5.3 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P016.str })
-        
+
+        (fp_line (start -6.75 -9) (end 6.75 -9) (layer F.CrtYd) (width 0.12))
+        (fp_line (start 6.75 -9) (end 6.75 9) (layer F.CrtYd) (width 0.12))
+        (fp_line (start 6.75 9) (end -6.75 9) (layer F.CrtYd) (width 0.12))
+        (fp_line (start -6.75 9) (end -6.75 -9) (layer F.CrtYd) (width 0.12))
+        (fp_line (start -7.25 8.5) (end -7.25 9.5) (layer F.SilkS) (width 0.12))
+        (fp_line (start 7.25 8.5) (end 7.25 9.5) (layer F.SilkS) (width 0.12))
+        (fp_line (start 6.25 9.5) (end 7.25 9.5) (layer F.SilkS) (width 0.12))
+        (fp_line (start -6.25 9.5) (end -7.25 9.5) (layer F.SilkS) (width 0.12))
+        (fp_line (start -9.5 -11.2) (end 9.5 -11.2) (layer Dwgs.User) (width 0.12))
+        (fp_line (start 9.5 -11.2) (end 9.5 -6.2) (layer Dwgs.User) (width 0.12))
+        (fp_line (start 9.5 -6.2) (end -9.5 -6.2) (layer Dwgs.User) (width 0.12))
+        (fp_line (start -9.5 -6.2) (end -9.5 -11.2) (layer Dwgs.User) (width 0.12))
+
         (fp_text user "Antenna keepout" (at 0 -9 ${ p.rot-180 }) (layer Dwgs.User)
           (effects (font (size 1 1) (thickness 0.15)))
         )
