@@ -37,6 +37,13 @@ module.exports = {
   (fp_line (start -3 -1.8) (end -3 -1.1) (layer B.SilkS) (width 0.15))
   (pad 1 thru_hole circle (at -3.25 0) (size 2 2) (drill 1.3) (layers *.Cu *.Mask) ${p.net.from.str})
   (pad 2 thru_hole circle (at 3.25 0) (size 2 2) (drill 1.3) (layers *.Cu *.Mask) ${p.net.to.str})
+    
+  (model "\${KICAD6_3DMODEL_DIR}/Button_Switch_SMD.3dshapes/SW_SPST_CK_RS282G05A3.wrl"
+    (offset (xyz 0 0 0))
+    (scale (xyz 1 1 1))
+    (rotate (xyz 0 0 0))
+  )
+  
 )
     
     `
