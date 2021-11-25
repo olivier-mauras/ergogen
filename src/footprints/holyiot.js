@@ -58,7 +58,7 @@ module.exports = {
     },
     params: {
         class: 'MCU',
-        // By placing a model in the path specified below KiCad will attempt to show it in the 3D viewer
+        // By placing a model in the path specified below KiCad will show it in the 3D viewer
         model: './3d/holyiot_18010_nRF52840.step'
     },
     body: p => `
