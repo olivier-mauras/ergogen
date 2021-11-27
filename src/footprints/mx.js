@@ -21,7 +21,9 @@ module.exports = {
       class: 'S',
       hotswap: false,
       reverse: false,
-      keycaps: false
+      keycaps: false,
+      // By placing a model in the path specified below KiCad will show it in the 3D viewer
+      model: './3d/SW_Cherry_MX_PCB.stp'
   },
   body: p => {
     const standard = `
@@ -75,19 +77,19 @@ module.exports = {
           `
       }
     }
-    if(p.param.reverse){
+
       return `
         ${standard}
         ${p.param.keycaps ? keycap : ''}
         ${pins('-', '', 'B')}
-        ${pins('', '-', 'F')})
+        ${p.param.reverse ? pins('', '-', 'F') : ''}
+        
+         (model ${p.param.model}
+            (at (xyz 0 0 0))
+            (scale (xyz 1 1 1))
+            (rotate (xyz 0 0 0))
+        )
+        )
         `
-    } else {
-      return `
-        ${standard}
-        ${p.param.keycaps ? keycap : ''}
-        ${pins('-', '', 'B')})
-        `
-    }
   }
 }
