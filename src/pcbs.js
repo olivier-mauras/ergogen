@@ -308,7 +308,7 @@ exports.parse = (config, points, outlines, units) => {
         const add_power_nets_arr = []
         for (const [net, index] of Object.entries(nets)) {
             nets_arr.push(`(net ${index} "${net}")`)
-            if (['vcc', 'vdd', 'raw', 'gnd'].includes(net.toLowerCase())) {
+            if (['vcc', 'vdd', 'vbus', 'raw', 'gnd'].includes(net.toLowerCase())) {
                 add_power_nets_arr.push(`(add_net "${net}")`)
             } else {
                 add_default_nets_arr.push(`(add_net "${net}")`)
