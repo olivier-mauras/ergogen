@@ -19,7 +19,7 @@ module.exports = {
     scrollwheel: require('./scrollwheel'),
     slider: require('./slider'),
     tactswitch: require('./tactswitch'),
-    tentingpuck: require('tentingpuck'),
+    tentingpuck: require('./tentingpuck'),
     trace: require('./trace'),
     trrs: require('./trrs'),
     usbc: require('./usbc'),
