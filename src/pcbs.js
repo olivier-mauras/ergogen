@@ -42,14 +42,14 @@ const kicad_prefix = `
 
   (setup
     (last_trace_width 0.25)
-    (trace_clearance 0.2)
+    (trace_clearance 0.127)
     (zone_clearance 0.508)
     (zone_45_only no)
-    (trace_min 0.2)
-    (via_size 0.8)
-    (via_drill 0.4)
+    (trace_min 0.127)
+    (via_size 0.4)
+    (via_drill 0.2)
     (via_min_size 0.4)
-    (via_min_drill 0.3)
+    (via_min_drill 0.2)
     (uvia_size 0.3)
     (uvia_drill 0.1)
     (uvias_allowed no)
@@ -88,7 +88,7 @@ const kicad_prefix = `
       (plotvalue true)
       (plotinvisibletext false)
       (padsonsilk false)
-      (subtractmaskfromsilk false)
+      (subtractmaskfromsilk true)
       (outputformat 1)
       (mirror false)
       (drillshape 1)
@@ -103,10 +103,10 @@ const kicad_suffix = `
 
 const kicad_default_netclass = `
   (net_class Default "This is the default net class."
-    (clearance 0.2)
-    (trace_width 0.25)
-    (via_dia 0.8)
-    (via_drill 0.4)
+    (clearance 0.127)
+    (trace_width 0.13)
+    (via_dia 0.4)
+    (via_drill 0.2)
     (uvia_dia 0.3)
     (uvia_drill 0.1)
     __ADD_NET
@@ -116,7 +116,7 @@ const kicad_default_netclass = `
 const kicad_power_netclass = `
   (net_class Power "This is the power net class."
     (clearance 0.2)
-    (trace_width 0.5)
+    (trace_width 0.3)
     (via_dia 0.8)
     (via_drill 0.4)
     (uvia_dia 0.3)
