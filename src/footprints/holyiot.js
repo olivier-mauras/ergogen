@@ -58,6 +58,7 @@ module.exports = {
     },
     params: {
         class: 'MCU',
+        underside_pads: true,
         // By placing a model in the path specified below KiCad will show it in the 3D viewer
         model: './3d/holyiot_18010_nRF52840.step'
     },
@@ -108,24 +109,29 @@ module.exports = {
         (pad 35 smd rect (at 6.75 -3.5 ${ 180 + p.rot }) (size 1.524 0.7) (layers F.Cu F.Paste F.Mask) ${ p.net.P009.str })
         (pad 36 smd rect (at 6.75 -4.6 ${ 180 + p.rot }) (size 1.524 0.7) (layers F.Cu F.Paste F.Mask) ${ p.net.P010.str })
         (pad 37 smd rect (at 6.75 -5.7 ${ 180 + p.rot }) (size 1.524 0.7) (layers F.Cu F.Paste F.Mask) ${ p.net.GND.str })
-        (pad 38 thru_hole rect (at -4.25 -3.5 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P114.str })
-        (pad 39 thru_hole rect (at -4.25 -2.4 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P112.str })
-        (pad 40 thru_hole rect (at -4.25 -1.3 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P025.str })
-        (pad 41 thru_hole rect (at -4.25 -0.2 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P011.str })
-        (pad 42 thru_hole rect (at -4.25 0.9 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P108.str })
-        (pad 43 thru_hole rect (at -4.25 2 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P027.str })
-        (pad 44 thru_hole rect (at -4.25 3.1 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P008.str })
-        (pad 45 thru_hole rect (at -4.25 4.2 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P006.str })
-        (pad 46 thru_hole rect (at -4.25 5.3 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P026.str })
-        (pad 47 thru_hole rect (at 4.25 -3.5 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P107.str })
-        (pad 48 thru_hole rect (at 4.25 -2.4 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P105.str })
-        (pad 49 thru_hole rect (at 4.25 -1.3 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P024.str })
-        (pad 50 thru_hole rect (at 4.25 -0.2 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P020.str })
-        (pad 51 thru_hole rect (at 4.25 0.9 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P017.str })
-        (pad 52 thru_hole rect (at 4.25 2 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P015.str })
-        (pad 53 thru_hole rect (at 4.25 3.1 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P014.str })
-        (pad 54 thru_hole rect (at 4.25 4.2 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P013.str })
-        (pad 55 thru_hole rect (at 4.25 5.3 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P016.str })
+        
+        ${ p.param.underside_pads ? `
+            (pad 38 thru_hole rect (at -4.25 -3.5 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P114.str })
+            (pad 39 thru_hole rect (at -4.25 -2.4 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P112.str })
+            (pad 40 thru_hole rect (at -4.25 -1.3 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P025.str })
+            (pad 41 thru_hole rect (at -4.25 -0.2 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P011.str })
+            (pad 42 thru_hole rect (at -4.25 0.9 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P108.str })
+            (pad 43 thru_hole rect (at -4.25 2 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P027.str })
+            (pad 44 thru_hole rect (at -4.25 3.1 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P008.str })
+            (pad 45 thru_hole rect (at -4.25 4.2 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P006.str })
+            (pad 46 thru_hole rect (at -4.25 5.3 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P026.str })
+            (pad 47 thru_hole rect (at 4.25 -3.5 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P107.str })
+            (pad 48 thru_hole rect (at 4.25 -2.4 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P105.str })
+            (pad 49 thru_hole rect (at 4.25 -1.3 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P024.str })
+            (pad 50 thru_hole rect (at 4.25 -0.2 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P020.str })
+            (pad 51 thru_hole rect (at 4.25 0.9 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P017.str })
+            (pad 52 thru_hole rect (at 4.25 2 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P015.str })
+            (pad 53 thru_hole rect (at 4.25 3.1 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P014.str })
+            (pad 54 thru_hole rect (at 4.25 4.2 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P013.str })
+            (pad 55 thru_hole rect (at 4.25 5.3 ${ 180 + p.rot }) (size 1.524 0.7) (drill 0.4) (layers *.Cu *.Mask) ${ p.net.P016.str })
+        ` :
+        ``
+        }
 
         (fp_line (start -6.75 -9) (end 6.75 -9) (layer F.CrtYd) (width 0.12))
         (fp_line (start 6.75 -9) (end 6.75 9) (layer F.CrtYd) (width 0.12))
