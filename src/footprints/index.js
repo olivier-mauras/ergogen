@@ -6,6 +6,7 @@ module.exports = {
     diode: require('./diode'),
     holyiot: require('./holyiot'),
     itsybitsy: require('./itsybitsy'),
+    itsybackpack: require('./itsybackpack'),
     jstph: require('./jstph'),
     jumper: require('./jumper'),
     mountinghole: require('./mountinghole'),
