@@ -13,6 +13,7 @@ module.exports = {
     potentiometer: require('./potentiometer'),
     promicro: require('./promicro'),
     rgb: require('./rgb'),
+    sk6812mini_e: require('./sk6812mini_e'),
     rotary: require('./rotary'),
     scrollwheel: require('./scrollwheel'),
     slider: require('./slider'),
